@@ -5,8 +5,6 @@ import com.loopj.android.http.*;
 
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-
 import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class ComroomRestClient {
