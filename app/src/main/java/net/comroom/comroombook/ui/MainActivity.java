@@ -1,35 +1,31 @@
-package net.comroom.comroombook;
+package net.comroom.comroombook.ui;
 
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+
+import net.comroom.comroombook.R;
+import net.comroom.comroombook.ui.FragmentMain;
 
 public class MainActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
     NavigationView navigation;
     Toolbar toolbar;
-    FragmentMain mainfragment;
+    FragmentMain mainFragment;
+    FragmentChat chatFragment;
+    FragmentTimeTable timeTableFragment;
+    FragmentMessage messageFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
 
         setupNavigationView();
         setupToolbar();
@@ -56,18 +52,16 @@ public class MainActivity extends AppCompatActivity {
                 int itemid = menuItem.getItemId();
                 switch (itemid) {
                     case R.id.navigation_item_0:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.mainfc, mainfragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.mainfc, mainFragment).commit();
+                        break;
                     case R.id.navigation_item_1:
-                        //getSupportFragmentManager().beginTransaction().replace(R.id.mainfc, fragmentHistory).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.mainfc, chatFragment).commit();
                         break;
                     case R.id.navigation_item_2:
-//                        Snackbar
-//                                .make(findViewById(R.id.coordinatelayout), "another snacbar test", Snackbar.LENGTH_LONG)
-//                                .setAction("Action", this)
-//                                .show(); // Don’t forget to show!
+                        getSupportFragmentManager().beginTransaction().replace(R.id.mainfc, timeTableFragment).commit();
                         break;
                     case R.id.navigation_item_3:
-                        //getSupportFragmentManager().beginTransaction().replace(R.id.mainfc, fragmentSetting).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.mainfc, messageFragment).commit();
                         break;
                 }
                 drawerLayout.closeDrawers();
@@ -77,8 +71,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupFragments() {
-        mainfragment = new FragmentMain();
-        getSupportFragmentManager().beginTransaction().replace(R.id.mainfc, mainfragment).commit();
+        mainFragment = new FragmentMain();
+        chatFragment = new FragmentChat();
+        timeTableFragment = new FragmentTimeTable();
+        messageFragment = new FragmentMessage();
+        getSupportFragmentManager().beginTransaction().replace(R.id.mainfc, mainFragment).commit();
     }
 
     private void setupToolbar() {

@@ -1,4 +1,4 @@
-package net.comroom.comroombook;
+package net.comroom.comroombook.core;
 
 import android.content.Context;
 import com.loopj.android.http.*;
