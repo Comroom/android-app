@@ -19,13 +19,8 @@ public class ComroomRestClient {
     }
 
     public static void post(Context context,String url, JSONObject jsonParams, AsyncHttpResponseHandler responseHandler) {
-        try {
-            StringEntity entity = new StringEntity(jsonParams.toString());
-            client.post(context,getAbsoluteUrl(url),entity,"application/json",responseHandler);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
+        StringEntity entity = new StringEntity(jsonParams.toString(),"UTF-8");
+        client.post(context,getAbsoluteUrl(url),entity,"application/json",responseHandler);
     }
 
     private static String getAbsoluteUrl(String relativeUrl) {
