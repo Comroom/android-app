@@ -2,4 +2,5 @@
     <string name="app_name">Comroom Book</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_login">Login</string>
+    <string name="title_activity_signup">Sign Up</string>
 </resources>

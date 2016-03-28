@@ -58,7 +58,9 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                 bt_login.setEnabled(true);
                 break;
             case R.id.bt_signup:
-                Toast.makeText(getApplicationContext(),"R.bt.signup",Toast.LENGTH_LONG).show();
+                bt_signup.setEnabled(false);
+                startActivity(new Intent(this, SignUpActivity.class));
+                bt_signup.setEnabled(true);
                 break;
             default:
                 break;
