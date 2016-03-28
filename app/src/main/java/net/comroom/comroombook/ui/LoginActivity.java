@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -70,7 +71,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
             Toast.makeText(getApplicationContext(),"로그인 정보를 입력 해주세요",Toast.LENGTH_SHORT).show();
             return;
         }
-        
+
         try {
             JSONObject login = new JSONObject();
             login.put("email",email);
@@ -117,4 +118,15 @@ public class LoginActivity extends Activity implements View.OnClickListener{
             return  "";
         }
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            moveTaskToBack(true);
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
+
 }

@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
     static final int REQUSET_LOGIN = 1;
     static final int RESULT_LOGIN = 2;
-
     private String user_id;
 
     @Override

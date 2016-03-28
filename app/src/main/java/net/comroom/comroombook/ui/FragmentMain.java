@@ -28,6 +28,8 @@ public class FragmentMain extends Fragment {
                 v = inflater.inflate(R.layout.fragment_main, container, false);
                 return v;
         }
+
+
 }
 
 
