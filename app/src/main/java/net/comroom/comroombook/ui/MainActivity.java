@@ -16,13 +16,13 @@ import net.comroom.comroombook.ui.FragmentMain;
 
 public class MainActivity extends AppCompatActivity {
 
-    DrawerLayout drawerLayout;
-    NavigationView navigation;
-    Toolbar toolbar;
-    FragmentMain mainFragment;
-    FragmentChat chatFragment;
-    FragmentTimeTable timeTableFragment;
-    FragmentMessage messageFragment;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigation;
+    private Toolbar toolbar;
+    private FragmentMain mainFragment;
+    private FragmentChat chatFragment;
+    private FragmentTimeTable timeTableFragment;
+    private FragmentMessage messageFragment;
 
     static final int REQUSET_LOGIN = 1;
     static final int RESULT_LOGIN = 2;
