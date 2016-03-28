@@ -20,6 +20,10 @@
             android:id="@+id/navigation_item_3"
             android:icon="@drawable/ic_launcher"
             android:title="메세지 및 설정"/>
+        <item
+            android:id="@+id/navigation_time_4"
+            android:icon="@drawable/ic_launcher"
+            android:title="로그아웃"/>
     </group>
 
 </menu>

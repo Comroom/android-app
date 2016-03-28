@@ -83,6 +83,10 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.navigation_item_3:
                         getSupportFragmentManager().beginTransaction().replace(R.id.mainfc, messageFragment).commit();
                         break;
+                    case R.id.navigation_time_4:
+                        startActivityForResult(new Intent(MainActivity.this, LoginActivity.class), REQUSET_LOGIN);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.mainfc, mainFragment).commit();
+                        break;
                 }
                 drawerLayout.closeDrawers();
                 return false;
