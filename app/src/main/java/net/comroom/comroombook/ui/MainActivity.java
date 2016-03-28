@@ -24,6 +24,11 @@ public class MainActivity extends AppCompatActivity {
     FragmentTimeTable timeTableFragment;
     FragmentMessage messageFragment;
 
+    static final int REQUSET_LOGIN = 1;
+    static final int RESULT_LOGIN = 2;
+
+    private String user_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +39,18 @@ public class MainActivity extends AppCompatActivity {
         setupFragments();
 
         /* Login Page */
-        startActivity(new Intent(MainActivity.this,LoginActivity.class));
+        startActivityForResult(new Intent(MainActivity.this, LoginActivity.class), REQUSET_LOGIN);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUSET_LOGIN){
+            if(resultCode == RESULT_LOGIN){
+                user_id = data.getStringExtra("user_id");
+                Log.d("MainActivity",user_id);
+            }
+        }
     }
 
     @Override
