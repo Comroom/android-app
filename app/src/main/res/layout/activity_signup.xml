@@ -62,6 +62,30 @@
             android:id="@+id/signup_password"/>
     </LinearLayout>
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Check Password :"
+            android:layout_weight="1"/>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:inputType="textPassword"
+            android:id="@+id/signup_checkpwd"/>
+        <net.comroom.comroombook.ui.signup_ui.CheckMarkView
+            android:id="@+id/check_mark_view"
+            android:layout_centerInParent="false"
+            android:layout_width="30dp"
+            android:foreground="?android:selectableItemBackground"
+            android:layout_height="30dp"
+            android:clickable="true"
+            android:stateListAnimator="@anim/button_elevation"/>
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
