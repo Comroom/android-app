@@ -85,7 +85,10 @@ public class SignUpActivity extends Activity{
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 buffPasswordd = et_password.getText().toString();
-                if(buffCheckPassword != null && (!buffPasswordd.equals(buffCheckPassword))){
+                if(buffCheckPassword != null && (buffPasswordd.equals(buffCheckPassword))){
+                    checkPassword.setChecked(false);
+                    checkPassword.toggle();
+                }else if(buffCheckPassword != null && (!buffPasswordd.equals(buffCheckPassword))){
                     checkPassword.setChecked(true);
                     checkPassword.toggle();
                 }
@@ -116,9 +119,7 @@ public class SignUpActivity extends Activity{
                 }
             }
             @Override
-            public void afterTextChanged(Editable s) {
-
-            }
+            public void afterTextChanged(Editable s) {}
         });
 
         bt_signUp.setOnClickListener(clickListener);
