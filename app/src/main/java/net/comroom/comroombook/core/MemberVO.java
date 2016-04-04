@@ -8,7 +8,7 @@ public class MemberVO {
     private String email;
     private String id;
 
-    MemberVO(String name,String email,String id){
+    public MemberVO(String name, String email, String id){
         this.name = name;
         this.email = email;
         this.id = id;
