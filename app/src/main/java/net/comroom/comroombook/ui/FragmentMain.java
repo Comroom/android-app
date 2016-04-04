@@ -50,6 +50,8 @@ public class FragmentMain extends Fragment {
 
     private ListView mListView = null;
     private ListViewAdapter mAdapter = null;
+    private MemberVO[] memberList;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_main, container, false);
@@ -57,12 +59,6 @@ public class FragmentMain extends Fragment {
         mListView = (ListView) v.findViewById(R.id.listView_main);
         mAdapter = new ListViewAdapter(getContext());
         mListView.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
-
-        mAdapter.addItem(getResources().getDrawable(R.drawable.ic_launcher),
-                "확인이 완료되었습니다",
-                "2014-02-18");
-
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
             @Override
@@ -75,9 +71,15 @@ public class FragmentMain extends Fragment {
         getDataFromServer(new DataHandler() {
             @Override
             public void onData(MemberVO[] members) {
+                memberList = members;
+
                 for (int i = 0; i < members.length; i++) {
-                    Log.d(TAG, "name : " + members[i].getName() + " email : " + members[i].getEmail() + " userid : " + members[i].getId());
+                    if(!MainActivity.user_id.equals(members[i].getId())){
+                        Log.d(TAG, "name : " + members[i].getName() + " email : " + members[i].getEmail() + " userid : " + members[i].getId());
+                        mAdapter.addItem(getResources().getDrawable(R.drawable.ic_launcher),members[i].getName(),members[i].getEmail());
+                    }
                 }
+                mAdapter.notifyDataSetChanged();
             }
         });
         return v;

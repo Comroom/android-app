@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     static final int REQUSET_LOGIN = 1;
     static final int RESULT_LOGIN = 2;
-    private String user_id;
+    public static String user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         if(requestCode == REQUSET_LOGIN){
             if(resultCode == RESULT_LOGIN){
                 user_id = data.getStringExtra("user_id");
+                getSupportFragmentManager().beginTransaction().replace(R.id.mainfc, mainFragment).commit();
                 Log.d("MainActivity",user_id);
             }
         }
@@ -99,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         chatFragment = new FragmentChat();
         timeTableFragment = new FragmentTimeTable();
         messageFragment = new FragmentMessage();
-        getSupportFragmentManager().beginTransaction().replace(R.id.mainfc, mainFragment).commit();
+        //getSupportFragmentManager().beginTransaction().replace(R.id.mainfc, mainFragment).commit();
     }
 
     private void setupToolbar() {
