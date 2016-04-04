@@ -22,7 +22,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpResponseHandler;
+
 import net.comroom.comroombook.R;
+import net.comroom.comroombook.core.ComroomRestClient;
+import net.comroom.comroombook.core.MemberVO;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Member;
+import java.util.logging.Handler;
+
+import cz.msebera.android.httpclient.Header;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,6 +46,7 @@ import java.util.Collections;
  */
 public class FragmentMain extends Fragment {
     View v;
+    final String TAG = "FragmentMain";
 
     private ListView mListView = null;
     private ListViewAdapter mAdapter = null;
@@ -56,6 +70,14 @@ public class FragmentMain extends Fragment {
                 ListData mData = mAdapter.mListData.get(position);
                 Toast.makeText(getActivity(), mData.mName, Toast.LENGTH_SHORT).show();
                 return true;
+            }
+        });
+        getDataFromServer(new DataHandler() {
+            @Override
+            public void onData(MemberVO[] members) {
+                for (int i = 0; i < members.length; i++) {
+                    Log.d(TAG, "name : " + members[i].getName() + " email : " + members[i].getEmail() + " userid : " + members[i].getId());
+                }
             }
         });
         return v;
@@ -92,7 +114,7 @@ public class FragmentMain extends Fragment {
             return position;
         }
 
-        public void addItem(Drawable icon, String mName, String mEmail){
+        public void addItem(Drawable icon, String mName, String mEmail) {
             ListData addInfo = null;
             addInfo = new ListData();
             //addInfo.mIcon = icon;
@@ -102,17 +124,17 @@ public class FragmentMain extends Fragment {
             mListData.add(addInfo);
         }
 
-        public void remove(int position){
+        public void remove(int position) {
             mListData.remove(position);
             dataChange();
         }
 
-        public void sort(){
+        public void sort() {
             Collections.sort(mListData, ListData.ALPHA_COMPARATOR);
             dataChange();
         }
 
-        public void dataChange(){
+        public void dataChange() {
             //mAdapter.notifyDataSetChanged();
         }
 
@@ -130,7 +152,7 @@ public class FragmentMain extends Fragment {
                 holder.mEmail = (TextView) convertView.findViewById(R.id.mEmail);
 
                 convertView.setTag(holder);
-            }else{
+            } else {
                 holder = (ViewHolder) convertView.getTag();
             }
 
@@ -150,6 +172,40 @@ public class FragmentMain extends Fragment {
         }
     }
 
+    public void getDataFromServer(final DataHandler handler) {
+        ComroomRestClient.get(getContext(), "/users", new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                try {
+                    String body = new String(responseBody);
+                    JSONArray members = new JSONArray(body);
+                    MemberVO[] results = new MemberVO[members.length()];
+
+                    for(int i=0;i<members.length();i++){
+                        JSONObject member = members.getJSONObject(i);
+
+                        String name = member.getString("name");
+                        String email = member.getString("email");
+                        String id = member.getString("_id");
+
+                        results[i] = new MemberVO(name,email,id);
+                    }
+                    handler.onData(results);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
+    }
+
+    interface DataHandler{
+        abstract void onData(MemberVO[] members);
+    }
 }
 
 
