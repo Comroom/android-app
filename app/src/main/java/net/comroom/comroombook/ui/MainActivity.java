@@ -1,6 +1,7 @@
 package net.comroom.comroombook.ui;
 
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.design.widget.NavigationView;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
 
 import net.comroom.comroombook.R;
 import net.comroom.comroombook.ui.FragmentMain;
@@ -86,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.navigation_time_4:
                         startActivityForResult(new Intent(MainActivity.this, LoginActivity.class), REQUSET_LOGIN);
-                        getSupportFragmentManager().beginTransaction().replace(R.id.mainfc, mainFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.mainfc, new Fragment()).commit();
                         break;
                 }
                 drawerLayout.closeDrawers();
