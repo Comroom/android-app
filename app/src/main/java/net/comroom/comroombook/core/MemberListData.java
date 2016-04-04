@@ -1,11 +1,11 @@
-package net.comroom.comroombook.ui;
+package net.comroom.comroombook.core;
 
 import java.text.Collator;
 import java.util.Comparator;
 
 import android.graphics.drawable.Drawable;
 
-public class ListData {
+public class MemberListData {
     /**
      * 리스트 정보를 담고 있을 객체 생성
      */
@@ -20,11 +20,11 @@ public class ListData {
     /**
      * 알파벳 이름으로 정렬
      */
-    public static final Comparator<ListData> ALPHA_COMPARATOR = new Comparator<ListData>() {
+    public static final Comparator<MemberListData> ALPHA_COMPARATOR = new Comparator<MemberListData>() {
         private final Collator sCollator = Collator.getInstance();
 
         @Override
-        public int compare(ListData mListDate_1, ListData mListDate_2) {
+        public int compare(MemberListData mListDate_1, MemberListData mListDate_2) {
             return sCollator.compare(mListDate_1.mName, mListDate_2.mEmail);
         }
     };

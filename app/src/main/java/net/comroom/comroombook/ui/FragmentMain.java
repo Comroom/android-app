@@ -1,13 +1,8 @@
 package net.comroom.comroombook.ui;
 
-import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,9 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,14 +18,12 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import net.comroom.comroombook.R;
 import net.comroom.comroombook.core.ComroomRestClient;
+import net.comroom.comroombook.core.MemberListData;
 import net.comroom.comroombook.core.MemberVO;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.lang.reflect.Member;
-import java.util.logging.Handler;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -51,19 +41,24 @@ public class FragmentMain extends Fragment {
     private ListView mListView = null;
     private ListViewAdapter mAdapter = null;
     private MemberVO[] memberList;
+    private TextView tv_myname;
+    private TextView tv_myemail;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_main, container, false);
 
         mListView = (ListView) v.findViewById(R.id.listView_main);
+        tv_myemail = (TextView) v.findViewById(R.id.my_email);
+        tv_myname = (TextView) v.findViewById(R.id.my_name);
+
         mAdapter = new ListViewAdapter(getContext());
         mListView.setAdapter(mAdapter);
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
-                ListData mData = mAdapter.mListData.get(position);
+                MemberListData mData = mAdapter.mMemberListData.get(position);
                 Toast.makeText(getActivity(), mData.mName, Toast.LENGTH_SHORT).show();
                 return true;
             }
@@ -77,6 +72,9 @@ public class FragmentMain extends Fragment {
                     if(!MainActivity.user_id.equals(members[i].getId())){
                         Log.d(TAG, "name : " + members[i].getName() + " email : " + members[i].getEmail() + " userid : " + members[i].getId());
                         mAdapter.addItem(getResources().getDrawable(R.drawable.ic_launcher),members[i].getName(),members[i].getEmail());
+                    }else{
+                        tv_myname.setText(members[i].getName());
+                        tv_myemail.setText(members[i].getEmail());
                     }
                 }
                 mAdapter.notifyDataSetChanged();
@@ -94,7 +92,7 @@ public class FragmentMain extends Fragment {
     }
     private class ListViewAdapter extends BaseAdapter {
         private Context mContext = null;
-        private ArrayList<ListData> mListData = new ArrayList<ListData>();
+        private ArrayList<MemberListData> mMemberListData = new ArrayList<MemberListData>();
 
         public ListViewAdapter(Context mContext) {
             super();
@@ -103,12 +101,12 @@ public class FragmentMain extends Fragment {
 
         @Override
         public int getCount() {
-            return mListData.size();
+            return mMemberListData.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return mListData.get(position);
+            return mMemberListData.get(position);
         }
 
         @Override
@@ -117,22 +115,22 @@ public class FragmentMain extends Fragment {
         }
 
         public void addItem(Drawable icon, String mName, String mEmail) {
-            ListData addInfo = null;
-            addInfo = new ListData();
+            MemberListData addInfo = null;
+            addInfo = new MemberListData();
             //addInfo.mIcon = icon;
             addInfo.mName = mName;
             addInfo.mEmail = mEmail;
 
-            mListData.add(addInfo);
+            mMemberListData.add(addInfo);
         }
 
         public void remove(int position) {
-            mListData.remove(position);
+            mMemberListData.remove(position);
             dataChange();
         }
 
         public void sort() {
-            Collections.sort(mListData, ListData.ALPHA_COMPARATOR);
+            Collections.sort(mMemberListData, MemberListData.ALPHA_COMPARATOR);
             dataChange();
         }
 
@@ -158,7 +156,7 @@ public class FragmentMain extends Fragment {
                 holder = (ViewHolder) convertView.getTag();
             }
 
-            ListData mData = mListData.get(position);
+            MemberListData mData = mMemberListData.get(position);
 
 //            if (mData.mIcon != null) {
 //                holder.mIcon.setVisibility(View.VISIBLE);
