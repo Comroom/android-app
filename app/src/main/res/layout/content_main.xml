@@ -24,6 +24,32 @@
                 android:layout_height="wrap_content">
                 <!--<include layout="@layout/fragment_andro_filter_main"/>-->
             </RelativeLayout>
+            <com.github.clans.fab.FloatingActionMenu
+                android:id="@+id/fab_menu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                fab:menu_labels_style="@style/MenuLabelsStyle"
+                fab:menu_colorNormal="@color/colorPrimary"
+                fab:menu_colorPressed="@color/colorPrimaryDark"
+                fab:menu_colorRipple="@color/colorPrimaryDark"
+                fab:menu_backgroundColor="#bebebe"
+                fab:menu_fab_label="Menu label"
+                fab:menu_labels_ellipsize="end"
+                fab:menu_labels_singleLine="true">
+
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/fab_create_chat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_launcher"
+                    fab:fab_label="채팅방개설"
+                    fab:fab_size="mini"/>
+            </com.github.clans.fab.FloatingActionMenu>
 
         </RelativeLayout>
 
