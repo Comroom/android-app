@@ -30,7 +30,7 @@ public class ChatVO {
         this.name = name;
     }
 
-    String[] getMembers(){
+    public String[] getMembers(){
         return this.members;
     }
 

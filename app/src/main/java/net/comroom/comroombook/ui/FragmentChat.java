@@ -40,6 +40,11 @@ public class FragmentChat extends Fragment {
 
                 for(int i =0;i<chats.length;i++){
                     Log.d(TAG,"name : " + chats[i].getName());
+
+                    String[] members = chats[i].getMembers();
+                    for(int j=0;i<members.length;i++){
+                        Log.d(TAG,"member : " + members[i]);
+                    }
                 }
             }
         });
@@ -59,10 +64,23 @@ public class FragmentChat extends Fragment {
                     for(int i=0;i<json.length();i++){
                         JSONObject chat = json.getJSONObject(i);
 
+
                         String id = chat.getString("_id");
                         String name = chat.getString("name");
+                        String[] member = new String[0];
 
-                        chats[i] = new ChatVO(id,name,null);
+                        try{
+                            JSONArray chat_member = chat.getJSONArray("member");
+                            member = new String[chat_member.length()];
+
+                            for(int j=0;j<chat_member.length();j++){
+                                member[j] = chat_member.getString(j);
+                            }
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
+
+                        chats[i] = new ChatVO(id,name,member);
                     }
 
                     handler.onData(chats);
