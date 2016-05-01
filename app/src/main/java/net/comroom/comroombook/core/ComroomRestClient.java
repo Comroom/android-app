@@ -8,7 +8,7 @@ import org.json.JSONObject;
 import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class ComroomRestClient {
-    private static final String BASE_URL = "http://61.43.139.23:3000";
+    private static final String BASE_URL = "http://163.44.172.80:3000";
 
     private static AsyncHttpClient client = new AsyncHttpClient();
 
