@@ -55,7 +55,6 @@ public class FragmentMain extends Fragment {
         mAdapter = new ListViewAdapter(getContext());
         mListView.setAdapter(mAdapter);
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
                 MemberListData mData = mAdapter.mMemberListData.get(position);

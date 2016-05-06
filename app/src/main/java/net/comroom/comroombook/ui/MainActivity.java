@@ -57,13 +57,13 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.fab_create_chat:
-                    Intent intent = new Intent(MainActivity.this, CreateChatActivity.class);
-                    startActivity(intent);
                     Log.d(TAG, "채팅방 개설");
                     Snackbar
                             .make(findViewById(R.id.coordinatelayout), "채팅방이 개설됐습니다.", Snackbar.LENGTH_SHORT)
                             .setAction("Action", this)
                             .show();
+                    Intent intent = new Intent(MainActivity.this, CreateChatActivity.class);
+                    startActivity(intent);
                     break;
             }
         }

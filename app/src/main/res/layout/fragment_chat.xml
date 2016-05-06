@@ -9,4 +9,9 @@
         android:layout_height="wrap_content"
         android:text="Here is chat Fragment!" />
 
+    <ListView
+        android:id="@+id/listView_chat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </LinearLayout>
