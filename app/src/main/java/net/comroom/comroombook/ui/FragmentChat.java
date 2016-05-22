@@ -51,9 +51,9 @@ public class FragmentChat extends Fragment {
         mAdapter = new ListViewAdapter(getContext());
 
         mListView.setAdapter(mAdapter);
-        mListView.setOnClickListener(new AdapterView.OnClickListener(){
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
-            public void onClick(View v) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             }
         });
