@@ -34,7 +34,7 @@ public class ChatRoomActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_chat);
+        setContentView(R.layout.activity_chat_room);
 
         Intent intent = new Intent();
 
