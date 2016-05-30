@@ -39,11 +39,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="취소하기"/>
+            android:text="취소하기"
+            android:id="@+id/bt_create_chat_cancel" />
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:id="@+id/create_chat_submit"
             android:text="만들기"/>
     </LinearLayout>
 </LinearLayout>
