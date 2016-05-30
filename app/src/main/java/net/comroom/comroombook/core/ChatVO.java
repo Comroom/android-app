@@ -14,7 +14,7 @@ public class ChatVO {
         this.members = members;
     }
 
-    String getId(){
+    public String getId(){
         return this.id;
     }
 

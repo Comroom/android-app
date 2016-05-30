@@ -1,6 +1,7 @@
 package net.comroom.comroombook.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -41,6 +42,7 @@ public class FragmentChat extends Fragment {
     private ListView mListView = null;
     private ListViewAdapter mAdapter = null;
     private MemberVO[] memberList;
+    private String[] group_id;
 
     View v;
     @Override
@@ -48,13 +50,42 @@ public class FragmentChat extends Fragment {
         v = inflater.inflate(R.layout.fragment_chat, container, false);
 
         mListView = (ListView) v.findViewById(R.id.listView_chat);
-        mAdapter = new ListViewAdapter(getContext());
 
+        mAdapter = new ListViewAdapter(getContext());
         mListView.setAdapter(mAdapter);
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+        getDataFromServer(new DataHandler() {
+            @Override
+            public void onData(ChatVO[] chats) {
+                //Chat list 전달
+
+                group_id = new String[chats.length];
+                for(int i =0;i<chats.length;i++){
+                    Log.d(TAG,"name : " + chats[i].getName());
+                    group_id[i] = chats[i].getId();
+                    String[] members = chats[i].getMembers();
+                    for(int j=0;j<members.length;j++){
+                        if(members[j].equals(MainActivity.user_id)) {
+                            mAdapter.addItem(getResources().getDrawable(R.drawable.ic_launcher), chats[i].getName(), "" + chats[i].getMembers().length);
+                            break;
+                        }
+                    }
+
+                    for(int j=0;j<members.length;j++){
+                        Log.d(TAG,"member : " + members[j]);
+                    }
+                }
+                mAdapter.notifyDataSetChanged();
+            }
+        });
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                Intent intent = new Intent(getActivity(), ChatRoomActivity.class);
+                intent.putExtra("group_id", group_id[position]);
+                startActivity(intent);
+                Toast.makeText(getActivity(), "click chatRoom!", Toast.LENGTH_SHORT).show();
             }
         });
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -63,22 +94,6 @@ public class FragmentChat extends Fragment {
                 ChatRoomListData mData = mAdapter.mChatRoomListData.get(position);
                 Toast.makeText(getActivity(), mData.mRoomName, Toast.LENGTH_SHORT).show();
                 return true;
-            }
-        });
-
-        getDataFromServer(new DataHandler() {
-            @Override
-            public void onData(ChatVO[] chats) {
-                //Chat list 전달
-
-                for(int i =0;i<chats.length;i++){
-                    Log.d(TAG,"name : " + chats[i].getName());
-
-                    String[] members = chats[i].getMembers();
-                    for(int j=0;i<members.length;i++){
-                        Log.d(TAG,"member : " + members[i]);
-                    }
-                }
             }
         });
 
@@ -148,11 +163,11 @@ public class FragmentChat extends Fragment {
                 holder = new ViewHolder();
 
                 LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.listview_item, null);
+                convertView = inflater.inflate(R.layout.chat_listview, null);
 
                 //holder.mIcon = (ImageView) convertView.findViewById(R.id.mImage);
-                holder.mRoomName = (TextView) convertView.findViewById(R.id.mName);
-                holder.mRoomNumber = (TextView) convertView.findViewById(R.id.mEmail);
+                holder.mRoomName = (TextView) convertView.findViewById(R.id.mRoomName);
+                holder.mRoomNumber = (TextView) convertView.findViewById(R.id.mRoomNumber);
 
                 convertView.setTag(holder);
             } else {
